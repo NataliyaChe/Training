@@ -10,9 +10,8 @@ const login_lbl = document.querySelector('.login_lbl');
 const email_lbl = document.querySelector('.email_lbl');
 const password_lbl = document.querySelector('.password_lbl');
 
-const data = new FormData(form);
-const arr = Array.from(data);
-console.log('array', form);
+// const data = new FormData(form);
+// const arr = Array.from(data);
 // const user = {};
 // console.log('test', user);
 
@@ -42,7 +41,11 @@ form.addEventListener('submit', (event) => {
         errorPassword.style.display = 'none';
         password_lbl.style.display = 'block';
     };
-    console.log('array1', Array.from(data));
+    const data = new FormData(form);
+    // const arr = Array.from(data);
+    console.log('array1', data);
+    const dataObj = Object.fromEntries(data.entries());
+    console.log('dataObj', dataObj);
     // user.storageLogin = login.value;
     // user.storageEmail = email.value;
     // user.storagePassword = password.value;
