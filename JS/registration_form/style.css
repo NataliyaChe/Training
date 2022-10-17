@@ -1,0 +1,55 @@
+.wrap {
+    margin: 40px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 500px;
+    border: 2px solid teal;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.title {
+    color: teal;
+}
+
+.inp {
+    width: 300px;
+    border: 1px solid teal;
+    border-radius: 6px;
+    padding: 10px;
+    margin-bottom: 16px;
+}
+
+.btn {
+    background: teal;
+    border: none;
+    border-radius: 6px;
+    color: whitesmoke;
+    padding: 10px;
+    width: 25%;
+    cursor: pointer;
+}
+
+.text {
+    color: teal;
+}
+
+.label {
+    font-size: 18px;
+    line-height: 27px;
+}
+
+.error-text {
+    /* position: absolute; */
+    display: none;
+    width: 310px;
+    font-size: 18px;
+    line-height: 27px;
+    color: #cd0580;
+}
+
+
