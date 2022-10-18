@@ -2,23 +2,20 @@ const form = document.querySelector('.form');
 const errorName = document.querySelector('.error-name');
 const errorEmail = document.querySelector('.error-email');
 const errorPassword = document.querySelector('.error-password');
-const email = document.querySelector('.email');
-const login = document.querySelector('.login');
-const password = document.querySelector('.password');
-const password_rpt = document.querySelector('.password_rpt');
 const login_lbl = document.querySelector('.login_lbl');
 const email_lbl = document.querySelector('.email_lbl');
 const password_lbl = document.querySelector('.password_lbl');
 
-// const data = new FormData(form);
-// const arr = Array.from(data);
-// const user = {};
-// console.log('test', user);
+// const dataArr = []
+// localStorage.setItem('personArr', JSON.stringify(dataArr))
 
 form.addEventListener('submit', (event) => {
     event.preventDefault();
 
-    if(nameValidate(login)) {
+    const data = new FormData(event.target);
+    const dataObj = Object.fromEntries(data.entries());
+
+    if(nameValidate(dataObj.login)) {
         errorName.style.display = 'block';
         login_lbl.style.display = 'none';
     } else {
@@ -26,7 +23,7 @@ form.addEventListener('submit', (event) => {
         login_lbl.style.display = 'block';
     };
 
-    if(emailValidate(email)) {
+    if(emailValidate(dataObj.email)) {
         errorEmail.style.display = 'block';
         email_lbl.style.display = 'none';
     } else {
@@ -34,33 +31,43 @@ form.addEventListener('submit', (event) => {
         email_lbl.style.display = 'block';
     };
 
-    if(password.value !== password_rpt.value) {
+    if(dataObj.password !== dataObj.password_rpt) {
         errorPassword.style.display = 'block';
         password_lbl.style.display = 'none';
     } else {
         errorPassword.style.display = 'none';
         password_lbl.style.display = 'block';
     };
-    const data = new FormData(form);
-    // const arr = Array.from(data);
-    console.log('array1', data);
-    const dataObj = Object.fromEntries(data.entries());
-    console.log('dataObj', dataObj);
-    // user.storageLogin = login.value;
-    // user.storageEmail = email.value;
-    // user.storagePassword = password.value;
-    // localStorage.setItem('person', JSON.stringify(user))
+
+    function getStorageData() {
+        let storageArr = JSON.parse(localStorage.getItem('personArr'))
+        console.log('storage', storageArr);
+        if(storageArr == null) {
+            storageArr = []
+            console.log('if storage', storageArr);
+            console.log('if storage func', getStorageData());
+            storageArr.push(dataObj)
+            console.log('arr', storageArr);
+            localStorage.setItem('personArr', JSON.stringify(storageArr))
+        }
+        // storageArr.push(dataObj)
+        // console.log('arr', storageArr);
+        // localStorage.setItem('personArr', JSON.stringify(storageArr))
+    }
+
+    getStorageData()
 });
 
-function emailValidate(email) {
-  return !/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email.value);
+function emailValidate(el) {
+  return !/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(el);
 };
 
-function nameValidate(name) {
-  return !/^[a-zA-Z]+$/.test(name.value);
+function nameValidate(el) {
+  return !/^[a-zA-Z]+$/.test(el);
 };
 
-console.log('array2', Array.from(data));
+
+// localStorage.clear()
 
 // const storageUser = JSON.parse(localStorage.getItem('person'))
 //     console.log('starage', storageUser);
