@@ -240,7 +240,7 @@ deleteBtn.onclick = function() {
 // Получить объект можно с помощью команды parse
 
 // const raw = localStorage.getItem('person')
-// const person = JSON.parse(raw)
+// const person = JSON.parse(raw) 
 // person.name = 'Den'
 
 // console.log(person);

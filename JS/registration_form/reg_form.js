@@ -1,6 +1,7 @@
 const form = document.querySelector('.form');
 const errorName = document.querySelector('.error-name');
 const errorEmail = document.querySelector('.error-email');
+const wrongEmail = document.querySelector('.wrong-email');
 const errorPassword = document.querySelector('.error-password');
 const login_lbl = document.querySelector('.login_lbl');
 const email_lbl = document.querySelector('.email_lbl');
@@ -14,7 +15,7 @@ form.addEventListener('submit', (event) => {
 
     const data = new FormData(event.target);
     const dataObj = Object.fromEntries(data.entries());
-
+ 
     if(nameValidate(dataObj.login)) {
         errorName.style.display = 'block';
         login_lbl.style.display = 'none';
@@ -39,33 +40,46 @@ form.addEventListener('submit', (event) => {
         password_lbl.style.display = 'block';
     };
 
-    function getStorageData() {
-        let storageArr = JSON.parse(localStorage.getItem('personArr'))
-        console.log('storage', storageArr);
-        if(storageArr == null) {
-            storageArr = []
-            console.log('if storage', storageArr);
-            console.log('if storage func', getStorageData());
-            storageArr.push(dataObj)
-            console.log('arr', storageArr);
-            localStorage.setItem('personArr', JSON.stringify(storageArr))
-        }
-        // storageArr.push(dataObj)
-        // console.log('arr', storageArr);
-        // localStorage.setItem('personArr', JSON.stringify(storageArr))
+    const users = JSON.parse(localStorage.getItem('usersArr')) ?? []
+    console.log('users', users);
+    
+    console.log('duplicate', findDuplicateEmail(users, dataObj.email));
+    if (findDuplicateEmail(users, dataObj.email)) {
+        wrongEmail.style.display = 'block';
+        email_lbl.style.display = 'none'; 
+    } else {
+        wrongEmail.style.display = 'none';
+        email_lbl.style.display = 'block';
+    }; 
+   
+    users.push(dataObj)
+    localStorage.setItem('usersArr', JSON.stringify(users))
     }
+);
 
-    getStorageData()
-});
-
-function emailValidate(el) {
-  return !/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(el);
+function emailValidate(login) {
+  return !/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(login);
 };
 
-function nameValidate(el) {
-  return !/^[a-zA-Z]+$/.test(el);
+function nameValidate(email) {
+  return !/^[a-zA-Z]+$/.test(email);
 };
 
+findDuplicateEmail = (arr, email) => arr.find(item => email === item.email)
+
+// function findEmail(arr, email) {
+//      return arr.find(item => email === item.email)
+// }
+
+// findEmail = () => console.log('Hello');
+// findEmail()
+// function findEmail(arr, email) {
+//     arr.forEach(function(item){ 
+//         console.log('item', item.email);  
+//         email === item.email
+//         })
+//     return !email === item.email
+// }
 
 // localStorage.clear()
 
