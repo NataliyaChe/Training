@@ -45,8 +45,7 @@ form.addEventListener('submit', (event) => {
         isError = true;
     };
 
-    if(isError == false) {
-        ('final', isError);
+    if(!isError) {
         window.location.href = './main.html';
     }
 });

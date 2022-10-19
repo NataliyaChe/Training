@@ -55,8 +55,7 @@ form.addEventListener('submit', (event) => {
         email_lbl.style.display = 'block';
     }; 
    
-    if(isError == false) {
-        ('final', isError);
+    if(!isError) {
         users.push(dataObj)
         localStorage.setItem('usersArr', JSON.stringify(users))
     }
