@@ -13,31 +13,39 @@ const password_lbl = document.querySelector('.password_lbl');
 form.addEventListener('submit', (event) => {
     event.preventDefault();
 
+    let isError = false
+
     const data = new FormData(event.target);
     const dataObj = Object.fromEntries(data.entries());
  
     if(nameValidate(dataObj.login)) {
         errorName.style.display = 'block';
         login_lbl.style.display = 'none';
+        isError = true
     } else {
         errorName.style.display = 'none';
         login_lbl.style.display = 'block';
+        isError = false
     };
 
     if(emailValidate(dataObj.email)) {
         errorEmail.style.display = 'block';
         email_lbl.style.display = 'none';
+        isError = true
     } else {
         errorEmail.style.display = 'none';
         email_lbl.style.display = 'block';
+        isError = false
     };
 
     if(dataObj.password !== dataObj.password_rpt) {
         errorPassword.style.display = 'block';
         password_lbl.style.display = 'none';
+        isError = true
     } else {
         errorPassword.style.display = 'none';
         password_lbl.style.display = 'block';
+        isError = false
     };
 
     const users = JSON.parse(localStorage.getItem('usersArr')) ?? []
@@ -47,13 +55,19 @@ form.addEventListener('submit', (event) => {
     if (findDuplicateEmail(users, dataObj.email)) {
         wrongEmail.style.display = 'block';
         email_lbl.style.display = 'none'; 
+        isError = true
     } else {
         wrongEmail.style.display = 'none';
         email_lbl.style.display = 'block';
+        isError = false
     }; 
    
-    users.push(dataObj)
-    localStorage.setItem('usersArr', JSON.stringify(users))
+    if(isError == false) {
+        users.push(dataObj)
+        localStorage.setItem('usersArr', JSON.stringify(users))
+    }
+    // users.push(dataObj)
+    // localStorage.setItem('usersArr', JSON.stringify(users))
     }
 );
 
@@ -65,7 +79,7 @@ function nameValidate(email) {
   return !/^[a-zA-Z]+$/.test(email);
 };
 
-findDuplicateEmail = (arr, email) => arr.find(item => email === item.email)
+const findDuplicateEmail = (arr, email) => arr.find(item => email === item.email)
 
 // function findEmail(arr, email) {
 //      return arr.find(item => email === item.email)
