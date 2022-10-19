@@ -62,12 +62,12 @@ form.addEventListener('submit', (event) => {
     }
 });
 
-function emailValidate(login) {
-  return !/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(login);
+function emailValidate(email) {
+  return !/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
 };
 
-function nameValidate(email) {
-  return !/^[a-zA-Z]+$/.test(email);
+function nameValidate(login) {
+  return !/^[a-zA-Z]+$/.test(login);
 };
 
 const findDuplicateEmail = (arr, email) => arr.find(item => email === item.email)
