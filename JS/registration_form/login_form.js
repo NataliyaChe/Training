@@ -47,6 +47,7 @@ form.addEventListener('submit', (event) => {
 
     if(!isError) {
         window.location.href = './main.html';
+        localStorage.setItem('matchUser', JSON.stringify(matchUser))
     }
 });
 
