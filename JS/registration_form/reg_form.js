@@ -15,16 +15,16 @@ form.addEventListener('submit', (event) => {
     const data = new FormData(event.target);
     const dataObj = Object.fromEntries(data.entries());
  
-    if(nameValidate(dataObj.login)) {
+    if(validateName(dataObj.name)) {
         errorName.style.display = 'block';
-        login_lbl.style.display = 'none';
+        name_lbl.style.display = 'none';
         isError = true;
     } else {
         errorName.style.display = 'none';
-        login_lbl.style.display = 'block';
+        name_lbl.style.display = 'block';
     };
 
-    if(emailValidate(dataObj.email)) {
+    if(validateEmail(dataObj.email)) {
         errorEmail.style.display = 'block';
         email_lbl.style.display = 'none';
         isError = true;
@@ -53,22 +53,21 @@ form.addEventListener('submit', (event) => {
         email_lbl.style.display = 'block';
     }; 
    
-
-
     if(!isError) {
         delete dataObj.password_rpt;
         dataObj.task = [];
         users.push(dataObj);
-        localStorage.setItem('usersArr', JSON.stringify(users))
+        localStorage.setItem('usersArr', JSON.stringify(users));
+        window.location.href = './login_form.html';
     }
 });
 
-function emailValidate(email) {
+function validateEmail(email) {
   return !/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
 };
 
-function nameValidate(login) {
-  return !/^[a-zA-Z]+$/.test(login);
+function validateName(name) {
+  return !/^[a-zA-Z]+$/.test(name);
 };
 
 const findDuplicateEmail = (arr, email) => arr.find(item => email === item.email);

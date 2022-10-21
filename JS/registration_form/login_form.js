@@ -13,7 +13,7 @@ form.addEventListener('submit', (event) => {
     const data = new FormData(event.target);
     const dataObj = Object.fromEntries(data.entries());
 
-    if(emailValidate(dataObj.email)) {
+    if(validateEmail(dataObj.email)) {
       errorEmail.style.display = 'block';
       email_lbl.style.display = 'none';
       isError = true;
@@ -24,8 +24,9 @@ form.addEventListener('submit', (event) => {
 
     const users = JSON.parse(localStorage.getItem('usersArr')) ?? [];
 
-    let matchUser = findDuplicateEmail(users, dataObj.email);
+    const matchUser = findDuplicateEmail(users, dataObj.email);
     
+
     if (matchUser) {
         wrongEmail.style.display = 'none';
         email_lbl.style.display = 'block';
@@ -34,6 +35,8 @@ form.addEventListener('submit', (event) => {
         email_lbl.style.display = 'none'; 
         isError = true;
     };
+
+    console.log('matchUser', matchUser, matchUser.password, dataObj.password);
     if (matchUser.password === dataObj.password) {
         wrongPass.style.display = 'none';
         password_lbl.style.display = 'block';
@@ -49,7 +52,7 @@ form.addEventListener('submit', (event) => {
     }
 });
 
-function emailValidate(email) {
+function validateEmail(email) {
   return !/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
 };
 
