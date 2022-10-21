@@ -10,7 +10,8 @@ if(matchUser === null) {
 }
 
 title.innerHTML = `Hello ${matchUser.name}!`;
-
+console.log('name', matchUser.name);
+console.log('name2', matchUser.name);
 for(const usersItem of users) {
     if(usersItem.name === matchUser.name) {
         const userTask = usersItem.task;

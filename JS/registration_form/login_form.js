@@ -36,15 +36,14 @@ form.addEventListener('submit', (event) => {
         isError = true;
     };
 
-    console.log('matchUser', matchUser, matchUser.password, dataObj.password);
-    if (matchUser.password === dataObj.password) {
+    if (matchUser && matchUser.password === dataObj.password) {
         wrongPass.style.display = 'none';
         password_lbl.style.display = 'block';
-    } else {
-        wrongPass.style.display = 'block';
-        password_lbl.style.display = 'none'; 
+    } else if (!matchUser) {
+        wrongPass.style.display = 'none';
+        password_lbl.style.display = 'block';
         isError = true;
-    };
+    } 
 
     if(!isError) {
         window.location.href = './main.html';

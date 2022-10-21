@@ -3,7 +3,7 @@ const errorName = document.querySelector('.error-name');
 const errorEmail = document.querySelector('.error-email');
 const wrongEmail = document.querySelector('.wrong-email');
 const errorPassword = document.querySelector('.error-password');
-const login_lbl = document.querySelector('.login_lbl');
+const name_lbl = document.querySelector('.name_lbl');
 const email_lbl = document.querySelector('.email_lbl');
 const password_lbl = document.querySelector('.password_lbl');
 
