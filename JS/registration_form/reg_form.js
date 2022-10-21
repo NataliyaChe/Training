@@ -10,7 +10,7 @@ const password_lbl = document.querySelector('.password_lbl');
 form.addEventListener('submit', (event) => {
     event.preventDefault();
 
-    let isError = false
+    let isError = false;
 
     const data = new FormData(event.target);
     const dataObj = Object.fromEntries(data.entries());
@@ -18,7 +18,7 @@ form.addEventListener('submit', (event) => {
     if(nameValidate(dataObj.login)) {
         errorName.style.display = 'block';
         login_lbl.style.display = 'none';
-        isError = true
+        isError = true;
     } else {
         errorName.style.display = 'none';
         login_lbl.style.display = 'block';
@@ -27,7 +27,7 @@ form.addEventListener('submit', (event) => {
     if(emailValidate(dataObj.email)) {
         errorEmail.style.display = 'block';
         email_lbl.style.display = 'none';
-        isError = true
+        isError = true;
     } else {
         errorEmail.style.display = 'none';
         email_lbl.style.display = 'block';
@@ -36,20 +36,18 @@ form.addEventListener('submit', (event) => {
     if(dataObj.password !== dataObj.password_rpt) {
         errorPassword.style.display = 'block';
         password_lbl.style.display = 'none';
-        isError = true
+        isError = true;
     } else {
         errorPassword.style.display = 'none';
         password_lbl.style.display = 'block';
     };
 
-    const users = JSON.parse(localStorage.getItem('usersArr')) ?? []
-    console.log('users', users);
+    const users = JSON.parse(localStorage.getItem('usersArr')) ?? [];
     
-    console.log('duplicate', findDuplicateEmail(users, dataObj.email));
     if (findDuplicateEmail(users, dataObj.email)) {
         wrongEmail.style.display = 'block';
         email_lbl.style.display = 'none'; 
-        isError = true
+        isError = true;
     } else {
         wrongEmail.style.display = 'none';
         email_lbl.style.display = 'block';
@@ -58,10 +56,9 @@ form.addEventListener('submit', (event) => {
 
 
     if(!isError) {
-        console.log('dataObj', dataObj);
         delete dataObj.password_rpt;
         dataObj.task = [];
-        users.push(dataObj)
+        users.push(dataObj);
         localStorage.setItem('usersArr', JSON.stringify(users))
     }
 });
@@ -74,7 +71,7 @@ function nameValidate(login) {
   return !/^[a-zA-Z]+$/.test(login);
 };
 
-const findDuplicateEmail = (arr, email) => arr.find(item => email === item.email)
+const findDuplicateEmail = (arr, email) => arr.find(item => email === item.email);
 
 // localStorage.clear()
 

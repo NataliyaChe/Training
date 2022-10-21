@@ -22,12 +22,10 @@ form.addEventListener('submit', (event) => {
       email_lbl.style.display = 'block';
   };
 
-    const users = JSON.parse(localStorage.getItem('usersArr')) ?? []
-    console.log('users', users);
+    const users = JSON.parse(localStorage.getItem('usersArr')) ?? [];
 
-    console.log('duplicate', findDuplicateEmail(users, dataObj.email));
-    let matchUser = findDuplicateEmail(users, dataObj.email) 
-    console.log('obj', matchUser);
+    let matchUser = findDuplicateEmail(users, dataObj.email);
+    
     if (matchUser) {
         wrongEmail.style.display = 'none';
         email_lbl.style.display = 'block';
