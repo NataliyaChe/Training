@@ -43,7 +43,11 @@ form.addEventListener('submit', (event) => {
         wrongPass.style.display = 'none';
         password_lbl.style.display = 'block';
         isError = true;
-    } 
+    }  else {
+        wrongPass.style.display = 'block';
+        password_lbl.style.display = 'none'; 
+        isError = true;
+    };
 
     if(!isError) {
         window.location.href = './main.html';
