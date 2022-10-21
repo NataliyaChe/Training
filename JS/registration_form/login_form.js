@@ -36,7 +36,7 @@ form.addEventListener('submit', (event) => {
         isError = true;
     };
 
-    if (matchUser && matchUser.password === dataObj.password) {
+    if (matchUser?.password === dataObj.password) {
         wrongPass.style.display = 'none';
         password_lbl.style.display = 'block';
     } else if (!matchUser) {
