@@ -55,7 +55,12 @@ form.addEventListener('submit', (event) => {
         email_lbl.style.display = 'block';
     }; 
    
+
+
     if(!isError) {
+        console.log('dataObj', dataObj);
+        delete dataObj.password_rpt;
+        dataObj.task = [];
         users.push(dataObj)
         localStorage.setItem('usersArr', JSON.stringify(users))
     }
