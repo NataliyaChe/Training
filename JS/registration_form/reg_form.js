@@ -1,3 +1,5 @@
+import {Storage} from "./utils/js";
+
 const form = document.querySelector('.form');
 const errorName = document.querySelector('.error-name');
 const errorEmail = document.querySelector('.error-email');
@@ -42,8 +44,11 @@ form.addEventListener('submit', (event) => {
         password_lbl.style.display = 'block';
     };
 
-    const users = JSON.parse(localStorage.getItem('usersArr')) ?? [];
-    
+    // const users = JSON.parse(localStorage.getItem('usersArr')) ?? [];
+    const storage = new Storage();
+    console.log('storage', storage);
+    const users = storage.getItem('usersArr') ?? [];
+
     if (findDuplicateEmail(users, dataObj.email)) {
         wrongEmail.style.display = 'block';
         email_lbl.style.display = 'none'; 
@@ -57,7 +62,8 @@ form.addEventListener('submit', (event) => {
         delete dataObj.password_rpt;
         dataObj.task = [];
         users.push(dataObj);
-        localStorage.setItem('usersArr', JSON.stringify(users));
+        // localStorage.setItem('usersArr', JSON.stringify(users));
+        storage.setItem('usersArr', users);
         window.location.href = './login_form.html';
     }
 });
@@ -73,4 +79,20 @@ function validateName(name) {
 const findDuplicateEmail = (arr, email) => arr.find(item => email === item.email);
 
 // localStorage.clear()
+
+// class Storage {
+//     constructor() {
+
+//     }
+
+//     getItem(key) {
+//         return JSON.parse(localStorage.getItem(key))
+//     }
+
+//     setItem(key, item) {
+//         localStorage.setItem(key, JSON.stringify(item));
+//     }
+// }
+
+
 
