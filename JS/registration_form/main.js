@@ -13,7 +13,7 @@ title.innerHTML = `Hello ${matchUser.name}!`;
 for(const usersItem of users) {
     if(usersItem.name === matchUser.name) {
         const userTask = usersItem.task;
-        for(i = 0; i < userTask.length; i++) {
+        for(let i = 0; i < userTask.length; i++) {
             const liItem = document.createElement('li');
             liItem.innerHTML = userTask[i];
             list.append(liItem);
