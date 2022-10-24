@@ -46,7 +46,6 @@ form.addEventListener('submit', (event) => {
 
     // const users = JSON.parse(localStorage.getItem('usersArr')) ?? [];
     const storage = new Storage();
-    console.log('storage', storage);
     const users = storage.getItem('usersArr') ?? [];
 
     if (findDuplicateEmail(users, dataObj.email)) {

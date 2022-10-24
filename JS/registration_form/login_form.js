@@ -1,3 +1,5 @@
+import {Storage} from "./utils.js";
+
 const form = document.querySelector('.form');
 const errorEmail = document.querySelector('.error-email');
 const wrongEmail = document.querySelector('.wrong-email');
@@ -22,8 +24,10 @@ form.addEventListener('submit', (event) => {
       email_lbl.style.display = 'block';
   };
 
-    const users = JSON.parse(localStorage.getItem('usersArr')) ?? [];
-
+    // const users = JSON.parse(localStorage.getItem('usersArr')) ?? [];
+    const storage = new Storage();
+    const users = storage.getItem('usersArr') ?? [];
+    
     const matchUser = findDuplicateEmail(users, dataObj.email);
     
 
@@ -51,7 +55,8 @@ form.addEventListener('submit', (event) => {
 
     if(!isError) {
         window.location.href = './main.html';
-        localStorage.setItem('matchUser', JSON.stringify(matchUser));
+        // localStorage.setItem('matchUser', JSON.stringify(matchUser));
+        storage.setItem('matchUser', matchUser);
     }
 });
 

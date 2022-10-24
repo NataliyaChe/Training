@@ -1,9 +1,14 @@
+import {Storage} from "./utils.js";
+
 const title = document.querySelector('.main-title');
 const taskInp = document.querySelector('.task');
 const list = document.querySelector('.list');
 
-const matchUser = JSON.parse(localStorage.getItem('matchUser'));
-const users = JSON.parse(localStorage.getItem('usersArr'));
+// const matchUser = JSON.parse(localStorage.getItem('matchUser'));
+// const users = JSON.parse(localStorage.getItem('usersArr'));
+const storage = new Storage();
+const matchUser = storage.getItem('matchUser')
+const users = storage.getItem('usersArr')
 
 if(matchUser === null) {
     window.location.href = './reg_form.html';
@@ -26,7 +31,8 @@ taskInp.addEventListener('keypress', event => {
         for(const usersItem of users) {
             if(usersItem.name === matchUser.name) {
                 usersItem.task.push(taskInp.value);
-                localStorage.setItem('usersArr', JSON.stringify(users));
+                // localStorage.setItem('usersArr', JSON.stringify(users));
+                storage.setItem('usersArr', users);
             }
         }
         const liItem = document.createElement('li');
