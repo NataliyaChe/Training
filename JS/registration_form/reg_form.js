@@ -1,4 +1,4 @@
-import {Storage} from "./utils/js";
+import {Storage} from "./utils.js";
 
 const form = document.querySelector('.form');
 const errorName = document.querySelector('.error-name');
@@ -80,19 +80,6 @@ const findDuplicateEmail = (arr, email) => arr.find(item => email === item.email
 
 // localStorage.clear()
 
-// class Storage {
-//     constructor() {
-
-//     }
-
-//     getItem(key) {
-//         return JSON.parse(localStorage.getItem(key))
-//     }
-
-//     setItem(key, item) {
-//         localStorage.setItem(key, JSON.stringify(item));
-//     }
-// }
 
 
 
