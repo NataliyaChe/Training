@@ -1,4 +1,4 @@
-import {Storage} from "./utils.js";
+import {Storage, findUserByEmail, validateEmail, validateName} from "./utils.js";
 
 const form = document.querySelector('.form');
 const errorName = document.querySelector('.error-name');
@@ -8,31 +8,30 @@ const errorPassword = document.querySelector('.error-password');
 const name_lbl = document.querySelector('.name_lbl');
 const email_lbl = document.querySelector('.email_lbl');
 const password_lbl = document.querySelector('.password_lbl');
+let isError = false;
 
 form.addEventListener('submit', (event) => {
     event.preventDefault();
-
-    let isError = false;
 
     const data = new FormData(event.target);
     const dataObj = Object.fromEntries(data.entries());
  
     if(validateName(dataObj.name)) {
-        errorName.style.display = 'block';
-        name_lbl.style.display = 'none';
+        setStyles(errorName, name_lbl)
         isError = true;
     } else {
-        errorName.style.display = 'none';
-        name_lbl.style.display = 'block';
+        setStyles(name_lbl, errorName)
     };
 
     if(validateEmail(dataObj.email)) {
-        errorEmail.style.display = 'block';
-        email_lbl.style.display = 'none';
+        // errorEmail.style.display = 'block';
+        // email_lbl.style.display = 'none';
+        setStyles(errorEmail, email_lbl)
         isError = true;
     } else {
-        errorEmail.style.display = 'none';
-        email_lbl.style.display = 'block';
+        // errorEmail.style.display = 'none';
+        // email_lbl.style.display = 'block';
+        setStyles(email_lbl, errorEmail)
     };
 
     if(dataObj.password !== dataObj.password_rpt) {
@@ -48,7 +47,7 @@ form.addEventListener('submit', (event) => {
     const storage = new Storage();
     const users = storage.getItem('usersArr') ?? [];
 
-    if (findDuplicateEmail(users, dataObj.email)) {
+    if (findUserByEmail(users, dataObj.email)) {
         wrongEmail.style.display = 'block';
         email_lbl.style.display = 'none'; 
         isError = true;
@@ -67,15 +66,10 @@ form.addEventListener('submit', (event) => {
     }
 });
 
-function validateEmail(email) {
-  return !/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
-};
-
-function validateName(name) {
-  return !/^[a-zA-Z]+$/.test(name);
-};
-
-const findDuplicateEmail = (arr, email) => arr.find(item => email === item.email);
+function setStyles(showElement, hideElement) {
+    showElement.style.display = 'block';
+    hideElement.style.display = 'none'; 
+}
 
 // localStorage.clear()
 

@@ -1,4 +1,4 @@
-import {Storage} from "./utils.js";
+import {Storage, findUserByEmail, validateEmail} from "./utils.js";
 
 const form = document.querySelector('.form');
 const errorEmail = document.querySelector('.error-email');
@@ -28,7 +28,7 @@ form.addEventListener('submit', (event) => {
     const storage = new Storage();
     const users = storage.getItem('usersArr') ?? [];
     
-    const matchUser = findDuplicateEmail(users, dataObj.email);
+    const matchUser = findUserByEmail(users, dataObj.email);
     
 
     if (matchUser) {
@@ -60,8 +60,3 @@ form.addEventListener('submit', (event) => {
     }
 });
 
-function validateEmail(email) {
-  return !/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
-};
-
-const findDuplicateEmail = (arr, email) => arr.find(item => email === item.email)
