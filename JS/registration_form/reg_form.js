@@ -10,6 +10,20 @@ const email_lbl = document.querySelector('.email_lbl');
 const password_lbl = document.querySelector('.password_lbl');
 let isError = false;
 
+const storage = new Storage();
+const users = storage.getItem('usersArr') ?? [];
+
+const superAdmin = {name: 'Super-admin', email: 'super-admin@gmail.com', password: '123456', task: [], role: 'super-admin', status: 'approved'};
+
+if (findUserByEmail(users, superAdmin.email)) {
+    isError = true;
+}; 
+
+if(!isError) {
+    users.push(superAdmin);
+    storage.setItem('usersArr', users);
+}
+
 form.addEventListener('submit', (event) => {
     event.preventDefault();
 
@@ -44,8 +58,8 @@ form.addEventListener('submit', (event) => {
     };
 
     // const users = JSON.parse(localStorage.getItem('usersArr')) ?? [];
-    const storage = new Storage();
-    const users = storage.getItem('usersArr') ?? [];
+    // const storage = new Storage();
+    // const users = storage.getItem('usersArr') ?? [];
 
     if (findUserByEmail(users, dataObj.email)) {
         wrongEmail.style.display = 'block';
@@ -59,8 +73,8 @@ form.addEventListener('submit', (event) => {
     if(!isError) {
         delete dataObj.password_rpt;
         dataObj.task = [];
-        dataObj.role = null;
-        dataObj.status = null;
+        dataObj.role = 'user';
+        dataObj.status = 'pending';
         users.push(dataObj);
         // localStorage.setItem('usersArr', JSON.stringify(users));
         storage.setItem('usersArr', users);
