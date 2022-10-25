@@ -52,4 +52,32 @@
     color: #cd0580;
 }
 
+.header {
+    background: teal;
+    padding: 20px;
+    margin-bottom: 20px;
+}
 
+.flex-wrap {
+    display: flex;
+    justify-content: space-between;
+}
+
+.nav-list {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.nav-item {
+    list-style: none;
+}
+
+.nav-text {
+    color: white;
+}
+
+.logout-btn {
+    border: 2px solid white;
+    width: 100px;
+}

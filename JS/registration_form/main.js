@@ -9,6 +9,7 @@ const list = document.querySelector('.list');
 const storage = new Storage();
 const matchUser = storage.getItem('matchUser')
 const users = storage.getItem('usersArr')
+console.log('users', users);
 
 if(matchUser === null) {
     window.location.href = './reg_form.html';

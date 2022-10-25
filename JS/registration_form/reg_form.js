@@ -59,6 +59,8 @@ form.addEventListener('submit', (event) => {
     if(!isError) {
         delete dataObj.password_rpt;
         dataObj.task = [];
+        dataObj.role = null;
+        dataObj.status = null;
         users.push(dataObj);
         // localStorage.setItem('usersArr', JSON.stringify(users));
         storage.setItem('usersArr', users);
