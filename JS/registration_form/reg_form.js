@@ -64,9 +64,9 @@ form.addEventListener('submit', (event) => {
     console.log('dubl', isError);
     if(!isError) {
         delete dataObj.password_rpt;
-        dataObj.task = [];
         dataObj.role = 'user';
         dataObj.status = 'pending';
+        dataObj.task = [];
         users.push(dataObj);
         storage.setItem('usersArr', users);
         window.location.href = './login_form.html';
