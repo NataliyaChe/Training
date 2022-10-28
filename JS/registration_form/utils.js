@@ -24,4 +24,30 @@ function validateName(name) {
 
 const findUserByEmail = (arr, email) => arr.find(item => email === item.email);
 
-export {Storage, findUserByEmail, validateEmail, validateName}
+const roleArr = ['user', 'admin', 'editor']
+const statusArr = ['pending', 'approved', 'declined']
+
+function Option(item) {
+    return `<option value="${item}">${item}</option>`
+}
+
+function Select(arr) {
+    const optionArr = arr.map(item => {
+        return Option(item)
+    })
+    let strOption = optionArr.join('')
+    return ` <select name="select" id="obj">
+        ${optionArr}
+    </select>`
+}
+
+function TableRow(obj, arr) {
+    return `<tr>
+        <th>${obj.name}</th>
+        <th>${obj.email}</th>
+        <th>${Select(roleArr)}</th>
+        <th>${Select(statusArr)}</th>
+    </tr>`
+}
+
+export {Storage, findUserByEmail, validateEmail, validateName, Option, Select, TableRow}
