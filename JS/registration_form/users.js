@@ -6,29 +6,12 @@ const storage = new Storage();
 const users = storage.getItem('usersArr')
 console.log('users', users);
 
-// for(const usersItem of users) {
-//     const tableItem = document.createElement('tr');
-//     tableBody.append(tableItem);
-//     let item = document.createElement('td');
-//     item.innerHTML = usersItem.name;
-//     tableItem.append(item); 
-//     item = document.createElement('td');
-//     item.innerHTML = usersItem.email;
-//     tableItem.append(item); 
-//     item = document.createElement('select');
-//     item.innerHTML = usersItem.role;
-//     tableItem.append(item); 
-//     item = document.createElement('td');
-//     item.innerHTML = usersItem.status;
-//     tableItem.append(item); 
-// }
-
 const roleArr = ['user', 'admin', 'editor']
-const statusArr = ['pending', 'approved']
+const statusArr = ['pending', 'approved', 'declined']
 
 
 function Option(item) {
-    return `<option value="item">${item}</option>`
+    return `<option value="${item}">${item}</option>`
 }
 
 function Select(obj, arr) {
@@ -36,7 +19,7 @@ function Select(obj, arr) {
         return Option(item)
     })
     console.log('optionArr', optionArr);
-    let strOption = optionArr.join(',')
+    let strOption = optionArr.join('')
     console.log('strOption', strOption)
     return ` <select name="select" id="obj">
         ${optionArr}
@@ -59,3 +42,21 @@ for(const usersItem of users) {
 
 
 // tableBody.innerHTML = html;
+
+
+// for(const usersItem of users) {
+//     const tableItem = document.createElement('tr');
+//     tableBody.append(tableItem);
+//     let item = document.createElement('td');
+//     item.innerHTML = usersItem.name;
+//     tableItem.append(item); 
+//     item = document.createElement('td');
+//     item.innerHTML = usersItem.email;
+//     tableItem.append(item); 
+//     item = document.createElement('select');
+//     item.innerHTML = usersItem.role;
+//     tableItem.append(item); 
+//     item = document.createElement('td');
+//     item.innerHTML = usersItem.status;
+//     tableItem.append(item); 
+// }
