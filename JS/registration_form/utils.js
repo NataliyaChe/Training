@@ -24,30 +24,37 @@ function validateName(name) {
 
 const findUserByEmail = (arr, email) => arr.find(item => email === item.email);
 
-const roleArr = ['user', 'admin', 'editor']
-const statusArr = ['pending', 'approved', 'declined']
+const roles = ['user', 'super-admin', 'admin', 'moderator', 'editor']
+const statuses = ['pending', 'approved', 'declined']
 
-function Option(item) {
-    return `<option value="${item}">${item}</option>`
+function Option(optionName, selectedOptionName) {
+     if(optionName === selectedOptionName) {
+        return `<option value="${optionName}" selected>${optionName}</option>`
+    } else {
+        return `<option value="${optionName}">${optionName}</option>`
+    }
 }
 
-function Select(arr) {
-    const optionArr = arr.map(item => {
-        return Option(item)
-    })
-    let strOption = optionArr.join('')
-    return ` <select name="select" id="obj">
-        ${optionArr}
+function Select(optionNames, selectedOptionName) {
+    const options = optionNames.map(optionName => Option(optionName, selectedOptionName)
+)
+    return ` <select name="select" class="select">
+        ${options}
     </select>`
 }
 
-function TableRow(obj, arr) {
+function TableRow(user) {
+    const {name, email, role, status} = user;
     return `<tr>
-        <th>${obj.name}</th>
-        <th>${obj.email}</th>
-        <th>${Select(roleArr)}</th>
-        <th>${Select(statusArr)}</th>
+        <th>${name}</th>
+        <th>${email}</th>
+        <th>${Select(roles, role)}</th>
+        <th>${Select(statuses, status)}</th>
     </tr>`
 }
 
 export {Storage, findUserByEmail, validateEmail, validateName, Option, Select, TableRow}
+
+// localStorage.clear()
+
+// roles.find(item => item === obj.role)
