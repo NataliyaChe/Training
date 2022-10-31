@@ -10,5 +10,15 @@ for(const userItem of users) {
     tableBody.innerHTML += TableRow(userItem);
 }
 
-const selectArr = document.querySelectorAll('.select')
-console.log('select', tableBody);
+const selects = document.querySelectorAll('.select')
+console.log('select', selects);
+
+selects.forEach(function(select) {
+    select.addEventListener('change', function() {
+        console.log('change', select.value);
+        
+        users.push(select.value);
+        storage.setItem('usersArr', users);
+        console.log('users', users);
+    })
+})

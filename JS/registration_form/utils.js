@@ -56,5 +56,3 @@ function TableRow(user) {
 export {Storage, findUserByEmail, validateEmail, validateName, Option, Select, TableRow}
 
 // localStorage.clear()
-
-// roles.find(item => item === obj.role)
