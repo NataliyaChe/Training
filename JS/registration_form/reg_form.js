@@ -21,26 +21,25 @@ if (!findUserByEmail(users, superAdmin.email)) {
 }; 
 
 form.addEventListener('submit', (event) => {
-    console.log('submit');
     event.preventDefault();
 
     const data = new FormData(event.target);
     const dataObj = Object.fromEntries(data.entries());
-    console.log('formdata', dataObj, data);
+
     if(validateName(dataObj.name)) {
         setStyles(errorName, name_lbl)
         isError = true;
     } else {
         setStyles(name_lbl, errorName)
     };
-    console.log('nameval', isError);
+
     if(validateEmail(dataObj.email)) {
         setStyles(errorEmail, email_lbl)
         isError = true;
     } else {
         setStyles(email_lbl, errorEmail)
     };
-    console.log('emailval', isError);
+   
     if(dataObj.password !== dataObj.password_rpt) {
         errorPassword.style.display = 'block';
         password_lbl.style.display = 'none';
@@ -49,10 +48,10 @@ form.addEventListener('submit', (event) => {
         errorPassword.style.display = 'none';
         password_lbl.style.display = 'block';
     };
-    console.log('passval', isError);
+   
     const storage = new Storage();
     const users = storage.getItem('usersArr') ?? [];
-    console.log('getusers', users);
+    
     if (findUserByEmail(users, dataObj.email)) {
         wrongEmail.style.display = 'block';
         email_lbl.style.display = 'none'; 
@@ -61,7 +60,7 @@ form.addEventListener('submit', (event) => {
         wrongEmail.style.display = 'none';
         email_lbl.style.display = 'block';
     }; 
-    console.log('dubl', isError);
+   
     if(!isError) {
         delete dataObj.password_rpt;
         dataObj.role = 'user';

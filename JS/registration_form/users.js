@@ -11,14 +11,18 @@ for(const userItem of users) {
 }
 
 const selects = document.querySelectorAll('.select')
-console.log('select', selects);
 
 selects.forEach(function(select) {
-    select.addEventListener('change', function() {
-        console.log('change', select.value);
-        
-        users.push(select.value);
-        storage.setItem('usersArr', users);
-        console.log('users', users);
+    select.addEventListener('change', function() { 
+        for(const userItem of users) {
+            console.log('userItem', userItem);
+            if(userItem.email === select.dataset.email && select.parentNode.dataset.key === "role") {
+                userItem.role = select.value;
+                storage.setItem('usersArr', users);
+            } else if (userItem.email === select.dataset.email && select.parentNode.dataset.key === "status") {
+                userItem.status = select.value;
+                storage.setItem('usersArr', users);
+            }
+        }
     })
 })

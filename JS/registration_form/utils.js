@@ -35,10 +35,10 @@ function Option(optionName, selectedOptionName) {
     }
 }
 
-function Select(optionNames, selectedOptionName) {
+function Select(optionNames, selectedOptionName, email) {
     const options = optionNames.map(optionName => Option(optionName, selectedOptionName)
 )
-    return ` <select name="select" class="select">
+    return ` <select name="select" class="select" data-email="${email}">
         ${options}
     </select>`
 }
@@ -47,9 +47,9 @@ function TableRow(user) {
     const {name, email, role, status} = user;
     return `<tr>
         <th>${name}</th>
-        <th>${email}</th>
-        <th>${Select(roles, role)}</th>
-        <th>${Select(statuses, status)}</th>
+        <th >${email}</th>
+        <th data-key="role">${Select(roles, role, email)}</th>
+        <th data-key="status">${Select(statuses, status, email)}</th>
     </tr>`
 }
 
