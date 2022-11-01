@@ -19,3 +19,16 @@ selects.forEach(function(select) {
         storage.setItem('usersArr', users);
     })
 })
+
+const buttons = document.querySelectorAll('.button')
+
+buttons.forEach(function(button) {
+    button.addEventListener('click', function() { 
+        const usersArr = users.filter(item => !(item.email === button.dataset.email));
+        storage.setItem('usersArr', usersArr);
+    })
+})
+
+// let allUsers = users.filter(item => !item.email === select.dataset.email);
+
+

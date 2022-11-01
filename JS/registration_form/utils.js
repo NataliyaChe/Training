@@ -53,6 +53,7 @@ function TableRow(user) {
         <th>${email}</th>
         <th>${Select(roles, role, email, dataRole)}</th>
         <th>${Select(statuses, status, email, dataStatus)}</th>
+        <th><button type="submit" class="button" data-email="${email}">Delete</button></th>
     </tr>`
 }
 
