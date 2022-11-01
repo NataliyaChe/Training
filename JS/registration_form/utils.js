@@ -26,6 +26,9 @@ const findUserByEmail = (arr, email) => arr.find(item => email === item.email);
 
 const roles = ['user', 'super-admin', 'admin', 'moderator', 'editor']
 const statuses = ['pending', 'approved', 'declined']
+const dataRole = 'role'
+const dataStatus = 'status'
+
 
 function Option(optionName, selectedOptionName) {
      if(optionName === selectedOptionName) {
@@ -35,10 +38,10 @@ function Option(optionName, selectedOptionName) {
     }
 }
 
-function Select(optionNames, selectedOptionName, email) {
+function Select(optionNames, selectedOptionName, email, dataArg) {
     const options = optionNames.map(optionName => Option(optionName, selectedOptionName)
 )
-    return ` <select name="select" class="select" data-email="${email}">
+    return ` <select name="select" class="select" data-arg="${dataArg}" data-email="${email}">
         ${options}
     </select>`
 }
@@ -47,9 +50,9 @@ function TableRow(user) {
     const {name, email, role, status} = user;
     return `<tr>
         <th>${name}</th>
-        <th >${email}</th>
-        <th data-key="role">${Select(roles, role, email)}</th>
-        <th data-key="status">${Select(statuses, status, email)}</th>
+        <th>${email}</th>
+        <th>${Select(roles, role, email, dataRole)}</th>
+        <th>${Select(statuses, status, email, dataStatus)}</th>
     </tr>`
 }
 
