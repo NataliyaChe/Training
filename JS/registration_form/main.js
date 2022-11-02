@@ -9,15 +9,14 @@ const list = document.querySelector('.list');
 const storage = new Storage();
 const matchUser = storage.getItem('matchUser')
 const users = storage.getItem('usersArr')
-console.log('users', users);
 
 if(matchUser === null) {
     window.location.href = './reg_form.html';
 }
 
 title.innerHTML = `Hello ${matchUser.name}!`;
-for(const usersItem of users) {
-    if(usersItem.name === matchUser.name) {
+for(const userItem of users) {
+    if(userItem.name === matchUser.name) {
         const userTask = usersItem.task;
         for(let i = 0; i < userTask.length; i++) {
             const liItem = document.createElement('li');
@@ -29,9 +28,9 @@ for(const usersItem of users) {
 
 taskInp.addEventListener('keypress', event => {
     if(event.code === 'Enter') {
-        for(const usersItem of users) {
-            if(usersItem.name === matchUser.name) {
-                usersItem.task.push(taskInp.value);
+        for(const userItem of users) {
+            if(userItem.name === matchUser.name) {
+                userItem.task.push(taskInp.value);
                 // localStorage.setItem('usersArr', JSON.stringify(users));
                 storage.setItem('usersArr', users);
             }
