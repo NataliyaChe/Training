@@ -24,7 +24,7 @@ const buttons = document.querySelectorAll('.button')
 
 buttons.forEach(function(button) {
     button.addEventListener('click', function() { 
-        const usersArr = users.filter(item => !(item.email === button.dataset.email));
+        const usersArr = users.filter(item => item.email !== button.dataset.email);
         storage.setItem('usersArr', usersArr);
     })
 })
