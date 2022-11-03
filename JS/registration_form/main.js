@@ -1,10 +1,10 @@
 import {Storage} from "./utils.js";
 
 const title = document.querySelector('.main-title');
-const taskInp = document.querySelector('.task');
+const postInp = document.querySelector('.task');
 const list = document.querySelector('.list');
 
-const taskDate = new Date();
+const postDate = new Date();
 
 // const matchUser = JSON.parse(localStorage.getItem('matchUser'));
 // const users = JSON.parse(localStorage.getItem('usersArr'));
@@ -19,10 +19,10 @@ if(matchUser === null) {
 title.innerHTML = `Hello ${matchUser.name}!`;
 for(const userItem of users) {
     if(userItem.name === matchUser.name) {
-        const userTask = userItem.task;
-        for(let i = 0; i < userTask.length; i++) {
+        const userPost = userItem.posts;
+        for(let i = 0; i < userPost.length; i++) {
             const liItem = document.createElement('li');
-            liItem.innerHTML = `<p>${userTask[i].task}</p> <p>${userTask[i].date}</p>`;
+            liItem.innerHTML = `<p>${userPost[i].message}</p> <p>${userPost[i].date}</p>`;
             list.append(liItem);
         }
         
@@ -30,18 +30,18 @@ for(const userItem of users) {
     
 }
 
-taskInp.addEventListener('keypress', event => {
+postInp.addEventListener('keypress', event => {
     if(event.code === 'Enter') {
         for(const userItem of users) {
             if(userItem.name === matchUser.name) {
-                userItem.task.push({task: taskInp.value, date: taskDate});
+                userItem.posts.push({message: postInp.value, date: postDate});
                 // localStorage.setItem('usersArr', JSON.stringify(users));
                 storage.setItem('usersArr', users);
             }
         }
         const liItem = document.createElement('li');
-        liItem.innerHTML = `<p>${taskInp.value}</p> <p>${taskDate}</p>`;
+        liItem.innerHTML = `<p>${postInp.value}</p> <p>${postDate}</p>`;
         list.append(liItem);
-        taskInp.value = '';
+        postInp.value = '';
     }
 });

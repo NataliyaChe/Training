@@ -13,7 +13,7 @@ let isError = false;
 const storage = new Storage();
 const users = storage.getItem('usersArr') ?? [];
 
-const superAdmin = {name: 'Super-admin', email: 'super-admin@gmail.com', password: '123456', task: [], role: 'super-admin', status: 'approved'};
+const superAdmin = {name: 'Super-admin', email: 'super-admin@gmail.com', password: '123456', posts: [], role: 'super-admin', status: 'approved'};
 
 if (!findUserByEmail(users, superAdmin.email)) {
     users.push(superAdmin);
@@ -65,7 +65,7 @@ form.addEventListener('submit', (event) => {
         delete dataObj.password_rpt;
         dataObj.role = 'user';
         dataObj.status = 'pending';
-        dataObj.task = [];
+        dataObj.posts = [];
         users.push(dataObj);
         storage.setItem('usersArr', users);
         window.location.href = './login_form.html';

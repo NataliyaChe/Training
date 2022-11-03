@@ -57,6 +57,17 @@ function TableRow(user) {
     </tr>`
 }
 
-export {Storage, findUserByEmail, validateEmail, validateName, Option, Select, TableRow}
+function UsersMapper(users) {
+    const postsArr = [];
+    users.forEach(function({name, email, posts}){
+        posts.forEach(function({message, date}) {
+            const post = {name, email, message, date};
+            postsArr.push(post)
+        })
+    })
+    return postsArr
+};
+
+export {Storage, findUserByEmail, validateEmail, validateName, Option, Select, TableRow, UsersMapper}
 
 // localStorage.clear()
