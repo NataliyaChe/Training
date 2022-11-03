@@ -57,15 +57,15 @@ function TableRow(user) {
     </tr>`
 }
 
-function UsersMapper(arr) {
-    const posts = [];
-    arr.forEach(function({name, email, task}){
-        task.forEach(function({task, date}) {
-            const post = {name: name, email: email, task: task, date: date};
-            posts.push(post)
+function UsersMapper(users) {
+    const postsArr = [];
+    users.forEach(function({name, email, posts}){
+        posts.forEach(function({message, date}) {
+            const post = {name, email, message, date};
+            postsArr.push(post)
         })
     })
-    return posts
+    return postsArr
 };
 
 export {Storage, findUserByEmail, validateEmail, validateName, Option, Select, TableRow, UsersMapper}
