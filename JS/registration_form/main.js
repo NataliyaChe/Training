@@ -52,29 +52,34 @@ postInp.addEventListener('keypress', event => {
 
 const postItems = document.querySelectorAll('.post-item')
 const postMessages = document.querySelectorAll('.message')
-const formsForEdit = document.querySelectorAll('.textarea')
 
 postMessages.forEach(function(message) {
-    message.addEventListener('click', event => {
-        console.log('message', message, message.parentNode);
-    })
+    message.addEventListener('click', liChange)  
 })
 
+function liChange(event) {
+    const liParent = event.target.parentNode
+    event.target.style.display = 'none'; 
+    const editItem = document.createElement('textarea');
+    editItem.className = 'editForm';
+    editItem.innerHTML = `${event.target.innerHTML}`;
+    liParent.prepend(editItem);
+    editItem.focus();
+    editItem.selectionStart = editItem.value.length;
+    editItem.addEventListener('focusout', liReturn)
+}
 
+function liReturn(event) {
+    const liParent = event.target.parentNode
+    event.target.style.display = 'none'; 
+    const liItem = document.createElement('li');
+    liItem.className = 'post-item';
+    liItem.innerHTML = `${event.target.value}`;
+    liParent.prepend(liItem);
+    liItem.addEventListener('click', liChange)
+}
 
 // function setStyles(showElement, hideElement) {
 //     showElement.style.display = 'block';
 //     hideElement.style.display = 'none'; 
 // }
-
-// const postItems = document.querySelectorAll('.post-item')
-// postItems.forEach(function(post) {
-//     post.addEventListener('click', function() { 
-
-//         // post.innerHTML = `<textarea>${userPost[i].message}</textarea>`;
-//         console.log('focus', post, p.innerHTML);
-//     })
-// })
-// postItem.addEventListener('click', event => {
-//     console.log('liItem', liItem);
-// })
