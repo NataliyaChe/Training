@@ -22,7 +22,9 @@ for(const userItem of users) {
         const userPost = userItem.posts;
         for(let i = 0; i < userPost.length; i++) {
             const liItem = document.createElement('li');
-            liItem.innerHTML = `<p>${userPost[i].message}</p> <p>${userPost[i].date}</p>`;
+            liItem.className = 'post-item';
+            liItem.innerHTML = `<p class="message">${userPost[i].message}</p> <textarea class="edit-form textarea">${userPost[i].message}</textarea> 
+            <p>${userPost[i].date}</p>`;
             list.append(liItem);
         }
         
@@ -40,8 +42,49 @@ postInp.addEventListener('keypress', event => {
             }
         }
         const liItem = document.createElement('li');
-        liItem.innerHTML = `<p>${postInp.value}</p> <p>${postDate}</p>`;
+        liItem.className = 'post-item';
+        liItem.innerHTML = `<p class="message">${postInp.value}</p> 
+        <p>${postDate}</p>`;
         list.append(liItem);
         postInp.value = '';
     }
 });
+
+const postItems = document.querySelectorAll('.post-item')
+const postMessages = document.querySelectorAll('.message')
+const formsForEdit = document.querySelectorAll('.textarea')
+
+postItems.forEach(function(post) {
+    const postMessage = document.querySelector('.message')
+    const formForEdit = document.querySelector('.textarea')
+    post.addEventListener('click', function() {
+        liSwitch()
+    })
+    function liSwitch() {
+        post.innerHTML = `<textarea onblur='liReset()' value='${postMessage.innerHTML}' />`;
+        document.getElementsByTagName('textarea')[0].focus();
+    }
+    function liReset() {
+        post.innerHTML = `<li onclick='liSwitch()'> <p class="message">${formForEdit.value}</p> 
+        <p>${postDate}</p> </li>`;
+    }
+})
+
+
+
+// function setStyles(showElement, hideElement) {
+//     showElement.style.display = 'block';
+//     hideElement.style.display = 'none'; 
+// }
+
+// const postItems = document.querySelectorAll('.post-item')
+// postItems.forEach(function(post) {
+//     post.addEventListener('click', function() { 
+
+//         // post.innerHTML = `<textarea>${userPost[i].message}</textarea>`;
+//         console.log('focus', post, p.innerHTML);
+//     })
+// })
+// postItem.addEventListener('click', event => {
+//     console.log('liItem', liItem);
+// })
