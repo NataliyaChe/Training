@@ -54,20 +54,10 @@ const postItems = document.querySelectorAll('.post-item')
 const postMessages = document.querySelectorAll('.message')
 const formsForEdit = document.querySelectorAll('.textarea')
 
-postItems.forEach(function(post) {
-    const postMessage = document.querySelector('.message')
-    const formForEdit = document.querySelector('.textarea')
-    post.addEventListener('click', function() {
-        liSwitch()
+postMessages.forEach(function(message) {
+    message.addEventListener('click', event => {
+        console.log('message', message, message.parentNode);
     })
-    function liSwitch() {
-        post.innerHTML = `<textarea onblur='liReset()' value='${postMessage.innerHTML}' />`;
-        document.getElementsByTagName('textarea')[0].focus();
-    }
-    function liReset() {
-        post.innerHTML = `<li onclick='liSwitch()'> <p class="message">${formForEdit.value}</p> 
-        <p>${postDate}</p> </li>`;
-    }
 })
 
 
