@@ -19,12 +19,12 @@ if(matchUser === null) {
 title.innerHTML = `Hello ${matchUser.name}!`;
 for(const userItem of users) {
     if(userItem.name === matchUser.name) {
-        const userPost = userItem.posts;
-        for(let i = 0; i < userPost.length; i++) {
+        const userPosts = userItem.posts;
+        for(let i = 0; i < userPosts.length; i++) {
             const liItem = document.createElement('li');
             liItem.className = 'post-item';
-            liItem.innerHTML = `<p class="message">${userPost[i].message}</p> <textarea class="edit-form textarea">${userPost[i].message}</textarea> 
-            <p>${userPost[i].date}</p>`;
+            liItem.innerHTML = `<p class="message">${userPosts[i].message}</p>  
+            <p>${userPosts[i].date}</p>`;
             list.append(liItem);
         }
         
@@ -36,7 +36,7 @@ postInp.addEventListener('keypress', event => {
     if(event.code === 'Enter') {
         for(const userItem of users) {
             if(userItem.name === matchUser.name) {
-                userItem.posts.push({message: postInp.value, date: postDate});
+                userItem.posts.push({message: postInp.value, date: postDate, editDate: checkDate});
                 // localStorage.setItem('usersArr', JSON.stringify(users));
                 storage.setItem('usersArr', users);
             }
@@ -44,7 +44,7 @@ postInp.addEventListener('keypress', event => {
         const liItem = document.createElement('li');
         liItem.className = 'post-item';
         liItem.innerHTML = `<p class="message">${postInp.value}</p> 
-        <p>${postDate}</p>`;
+        <p>${postDate}</p> <p></p>`;
         list.append(liItem);
         postInp.value = '';
     }
@@ -54,16 +54,15 @@ const postItems = document.querySelectorAll('.post-item')
 const postMessages = document.querySelectorAll('.message')
 
 postMessages.forEach(function(message) {
-    message.addEventListener('click', liChange)  
+    message.addEventListener('click', liChange) 
 })
 
 function liChange(event) {
     const liParent = event.target.parentNode
-    event.target.style.display = 'none'; 
     const editItem = document.createElement('textarea');
     editItem.className = 'editForm';
     editItem.innerHTML = `${event.target.innerHTML}`;
-    liParent.prepend(editItem);
+    liParent.replaceChild(editItem, event.target);
     editItem.focus();
     editItem.selectionStart = editItem.value.length;
     editItem.addEventListener('focusout', liReturn)
@@ -71,13 +70,24 @@ function liChange(event) {
 
 function liReturn(event) {
     const liParent = event.target.parentNode
-    event.target.style.display = 'none'; 
-    const liItem = document.createElement('li');
-    liItem.className = 'post-item';
-    liItem.innerHTML = `${event.target.value}`;
-    liParent.prepend(liItem);
-    liItem.addEventListener('click', liChange)
+    const pItem = document.createElement('p');
+    pItem.className = 'message';
+    pItem.innerHTML = `${event.target.value}`;
+    liParent.replaceChild(pItem, event.target);
+    pItem.addEventListener('click', liChange);
+    liParent.editDate = postDate 
+    console.log('usersArr', users, liParent); 
 }
+
+// function addElement(event, itemEl, tag, className, content) {
+//     let itemEl
+//     const liParent = event.target.parentNode
+//     event.target.style.display = 'none'; 
+//     itemEl = document.createElement('tag');
+//     itemEl.className = 'className';
+//     itemEl.innerHTML = `${event.target.content}`;
+//     liParent.prepend(item);
+// }
 
 // function setStyles(showElement, hideElement) {
 //     showElement.style.display = 'block';
