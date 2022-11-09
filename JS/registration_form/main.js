@@ -20,26 +20,26 @@ title.innerHTML = `Hello ${matchUser.name}!`;
 const user = users.find(item => item.email === matchUser.email);
 
 for(let i = 0; i < user.posts.length; i++) {
+    let edit = '';
+    if(user.posts[i].editDate) {
+        edit = `edit: ${user.posts[i].editDate}`
+    } 
     const liItem = document.createElement('li');
     liItem.className = 'post-item';
-    liItem.innerHTML = `<p data-id="${user.posts[i].id}" class="message">${user.posts[i].message}</p>  
-    <p>${user.posts[i].date}</p>`;
+    liItem.innerHTML = `<p data-id="${user.posts[i].id}" class="message">${user.posts[i].message}</p> <p>${user.posts[i].date}</p> <p>${edit}</p>`;
     list.append(liItem);
 }
     
 postInp.addEventListener('keypress', event => {
     if(event.code === 'Enter') {
-        const newPost = {id: uuidv4(), message: postInp.value, date: new Date()}
+        const newPost = {id: uuidv4(), message: postInp.value, date: new Date(), editDate: null}
         user.posts.push(newPost);
-        function checkDate() {
-            
-        }
         // localStorage.setItem('usersArr', JSON.stringify(users));
         storage.setItem('usersArr', users);
                
         const liItem = document.createElement('li');
         liItem.className = 'post-item';
-        liItem.innerHTML = `<p data-id="${newPost.id}" class="message">${postInp.value}</p> <p>${newPost.date}</p> <p></p>`;
+        liItem.innerHTML = `<p data-id="${newPost.id}" class="message">${postInp.value}</p> <p>${newPost.date}</p> <p>${newPost.editDate}</p>`;
         list.append(liItem);
         postInp.value = '';
     }
@@ -54,7 +54,8 @@ postMessages.forEach(function(message) {
 
 function liChange(event) {
     const liParent = event.target.parentNode;
-    liParent.setAttribute("id", `${event.target.dataset.id}`);
+    liParent.setAttribute("data-id", `${event.target.dataset.id}`);
+    console.log('liParent', liParent);
     const editItem = document.createElement('textarea');
     editItem.className = 'editForm';
     editItem.innerHTML = `${event.target.innerHTML}`;
@@ -66,15 +67,15 @@ function liChange(event) {
 
 function liReturn(event) {
     const liParent = event.target.parentNode;
-    const editedPost = user.posts.find(item => item.id === liParent.id)
+    const editedPost = user.posts.find(item => item.id === liParent.dataset.id)
     const pItem = document.createElement('p');
     pItem.className = 'message';
     pItem.innerHTML = `${event.target.value}`;
     liParent.replaceChild(pItem, event.target);
     pItem.addEventListener('click', liChange);
     editedPost.message = pItem.innerHTML;
+    editedPost.editDate = new Date();
     storage.setItem('usersArr', users);
-    // liParent.editDate = postDate 
 }
 
 // function addElement(event, itemEl, tag, className, content) {
