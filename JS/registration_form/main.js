@@ -20,10 +20,13 @@ title.innerHTML = `Hello ${matchUser.name}!`;
 const user = users.find(item => item.email === matchUser.email);
 
 user.posts.forEach(function({id, message, date, editDate}) {
-    const edit = `edit: ${editDate}` ?? '';
+    // const edit = editDate ?? '';
     createLi({id, message, date, editDate})
 })
-    
+//     if(user.posts[i].editDate) {
+//         edit = edit: ${user.posts[i].editDate}
+//     } 
+
 postInp.addEventListener('keypress', event => {
     if(event.code === 'Enter') {
         const newPost = {id: uuidv4(), message: postInp.value, date: new Date(), editDate: null}
@@ -67,10 +70,11 @@ function liReturn(event) {
 }
 
 function createLi(obj) {
+    const edit = obj.editDate ?? '';
     const liItem = document.createElement('li');
     liItem.className = 'post-item'; 
     liItem.setAttribute("data-id", `${obj.id}`);
-    liItem.innerHTML = `<p class="message">${obj.message}</p> <p>${obj.date}</p> <p>${obj.editDate}</p>`; 
+    liItem.innerHTML = `<p class="message">${obj.message}</p> <p>${obj.date}</p> <p>edit: ${edit}</p>`; 
     list.append(liItem);
 }
 
