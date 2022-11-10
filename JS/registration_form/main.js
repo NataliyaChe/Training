@@ -20,12 +20,8 @@ title.innerHTML = `Hello ${matchUser.name}!`;
 const user = users.find(item => item.email === matchUser.email);
 
 user.posts.forEach(function({id, message, date, editDate}) {
-    // const edit = editDate ?? '';
     createLi({id, message, date, editDate})
 })
-//     if(user.posts[i].editDate) {
-//         edit = edit: ${user.posts[i].editDate}
-//     } 
 
 postInp.addEventListener('keypress', event => {
     if(event.code === 'Enter') {
@@ -35,15 +31,10 @@ postInp.addEventListener('keypress', event => {
         storage.setItem('usersArr', users);
                
         createLi(newPost)
+        
         postInp.value = '';
     }
 });
-
-const postMessages = document.querySelectorAll('.message')
-
-postMessages.forEach(function(message) {
-    message.addEventListener('click', liChange) 
-})
 
 function liChange(event) {
     const liParent = event.target.parentNode;
@@ -75,6 +66,8 @@ function createLi(obj) {
     liItem.className = 'post-item'; 
     liItem.setAttribute("data-id", `${obj.id}`);
     liItem.innerHTML = `<p class="message">${obj.message}</p> <p>${obj.date}</p> <p>edit: ${edit}</p>`; 
+    const message = liItem.querySelector('.message');
+    message.addEventListener('click', liChange);
     list.append(liItem);
 }
 
