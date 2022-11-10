@@ -11,7 +11,7 @@ const storage = new Storage();
 const matchUser = storage.getItem('matchUser')
 const users = storage.getItem('usersArr')
 
-if(matchUser === null) {
+if(!matchUser) {
     window.location.href = './reg_form.html';
 }
 
@@ -19,16 +19,10 @@ title.innerHTML = `Hello ${matchUser.name}!`;
   
 const user = users.find(item => item.email === matchUser.email);
 
-for(let i = 0; i < user.posts.length; i++) {
-    let edit = '';
-    if(user.posts[i].editDate) {
-        edit = `edit: ${user.posts[i].editDate}`
-    } 
-    const liItem = document.createElement('li');
-    liItem.className = 'post-item';
-    liItem.innerHTML = `<p data-id="${user.posts[i].id}" class="message">${user.posts[i].message}</p> <p>${user.posts[i].date}</p> <p>${edit}</p>`;
-    list.append(liItem);
-}
+user.posts.forEach(function({id, message, date, editDate}) {
+    const edit = `edit: ${editDate}` ?? '';
+    createLi({id, message, date, editDate})
+})
     
 postInp.addEventListener('keypress', event => {
     if(event.code === 'Enter') {
@@ -37,15 +31,11 @@ postInp.addEventListener('keypress', event => {
         // localStorage.setItem('usersArr', JSON.stringify(users));
         storage.setItem('usersArr', users);
                
-        const liItem = document.createElement('li');
-        liItem.className = 'post-item';
-        liItem.innerHTML = `<p data-id="${newPost.id}" class="message">${postInp.value}</p> <p>${newPost.date}</p> <p>${newPost.editDate}</p>`;
-        list.append(liItem);
+        createLi(newPost)
         postInp.value = '';
     }
 });
 
-const postItems = document.querySelectorAll('.post-item')
 const postMessages = document.querySelectorAll('.message')
 
 postMessages.forEach(function(message) {
@@ -54,8 +44,6 @@ postMessages.forEach(function(message) {
 
 function liChange(event) {
     const liParent = event.target.parentNode;
-    liParent.setAttribute("data-id", `${event.target.dataset.id}`);
-    console.log('liParent', liParent);
     const editItem = document.createElement('textarea');
     editItem.className = 'editForm';
     editItem.innerHTML = `${event.target.innerHTML}`;
@@ -78,19 +66,12 @@ function liReturn(event) {
     storage.setItem('usersArr', users);
 }
 
-// function addElement(event, itemEl, tag, className, content) {
-//     let itemEl
-//     const liParent = event.target.parentNode
-//     event.target.style.display = 'none'; 
-//     itemEl = document.createElement('tag');
-//     itemEl.className = 'className';
-//     itemEl.innerHTML = `${event.target.content}`;
-//     liParent.prepend(item);
-// }
-
-// function setStyles(showElement, hideElement) {
-//     showElement.style.display = 'block';
-//     hideElement.style.display = 'none'; 
-// }
+function createLi(obj) {
+    const liItem = document.createElement('li');
+    liItem.className = 'post-item'; 
+    liItem.setAttribute("data-id", `${obj.id}`);
+    liItem.innerHTML = `<p class="message">${obj.message}</p> <p>${obj.date}</p> <p>${obj.editDate}</p>`; 
+    list.append(liItem);
+}
 
 // localStorage.clear()
