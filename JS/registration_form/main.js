@@ -51,12 +51,15 @@ function liReturn(event) {
     const liParent = event.target.parentNode;
     const editedPost = user.posts.find(item => item.id === liParent.dataset.id)
     const pItem = document.createElement('p');
+    const editDate = liParent.querySelector('.edit');
+    console.log('edit', editDate);
     pItem.className = 'message';
     pItem.innerHTML = `${event.target.value}`;
     liParent.replaceChild(pItem, event.target);
     pItem.addEventListener('click', liChange);
     editedPost.message = pItem.innerHTML;
     editedPost.editDate = new Date();
+    editDate.innerHTML = `${editedPost.editDate}`
     storage.setItem('usersArr', users);
 }
 
@@ -65,7 +68,7 @@ function createLi(obj) {
     const liItem = document.createElement('li');
     liItem.className = 'post-item'; 
     liItem.setAttribute("data-id", `${obj.id}`);
-    liItem.innerHTML = `<p class="message">${obj.message}</p> <p>${obj.date}</p> <p>edit: ${edit}</p>`; 
+    liItem.innerHTML = `<p class="message">${obj.message}</p> <p>${obj.date}</p> <p class="edit">edit: ${edit}</p>`; 
     const message = liItem.querySelector('.message');
     message.addEventListener('click', liChange);
     list.append(liItem);
