@@ -77,7 +77,7 @@ function setStyles(showElement, hideElement) {
     hideElement.style.display = 'none'; 
 }
 
-localStorage.clear()
+// localStorage.clear()
 
 
 

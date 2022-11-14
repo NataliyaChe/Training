@@ -78,20 +78,18 @@ console.log('UsersMapper()', UsersMapper(users));
 
 const searchInput = document.querySelector('.search-inp');
 const usersName = document.querySelectorAll('.name');
-console.log('usersName', usersName);
-usersName.forEach(function(user) {
-    console.log('user.innerHTML', user.innerHTML);
-})
 
 searchInput.addEventListener('keyup', function() {
     let searchValue = searchInput.value.toLowerCase();
-    postsArr.forEach(function(user) {
-        if(user.name.toLowerCase().indexOf(searchValue) > -1) {
+    usersName.forEach(function(user) {
+        if(user.innerHTML.toLowerCase().indexOf(searchValue) > -1) {
             console.log('Match');
+            user.parentNode.style.display = ''
         } else {
             console.log('No match');
+            user.parentNode.style.display = 'none'
         }
-    })  
+    });
 });
 
 // localStorage.clear()
