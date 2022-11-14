@@ -18,7 +18,7 @@ function createCard(obj) {
     card.setAttribute("data-id", `${obj.id}`);
     card.innerHTML = `<p class="name">${obj.name}</p>
         <p class="message">${obj.message}</p> 
-        <p>${obj.date}</p> 
+        <p class="date">${obj.date}</p> 
         <p class="edit">edit: ${edit}</p>
         <button type="submit" class="button btn deleteBtn">Delete</button>`; 
     const deleteButtons = card.querySelector('.deleteBtn');
@@ -74,7 +74,7 @@ function postReturn(event) {
     })
     storage.setItem('usersArr', users);
 }
-console.log('UsersMapper()', UsersMapper(users));
+console.log('postsArr', postsArr);
 
 const searchInput = document.querySelector('.search-inp');
 const usersName = document.querySelectorAll('.name');
@@ -83,13 +83,40 @@ searchInput.addEventListener('keyup', function() {
     let searchValue = searchInput.value.toLowerCase();
     usersName.forEach(function(user) {
         if(user.innerHTML.toLowerCase().indexOf(searchValue) > -1) {
-            console.log('Match');
             user.parentNode.style.display = ''
         } else {
-            console.log('No match');
             user.parentNode.style.display = 'none'
         }
     });
 });
+
+const sortButton = document.querySelector('.sort-btn');
+const postsDate = document.querySelectorAll('.date');
+
+sortButton.addEventListener('click', function() {
+    const arrByDate = postsArr.sort(function(a, b){
+            return new Date(b.date) - new Date(a.date);
+        });
+    console.log('arrByDate', arrByDate);
+
+    arrByDate.forEach(function({name, id, message, date, editDate}) {
+        // postsWrap.remove()
+        createCard({name, id, message, date, editDate})
+    });
+});
+
+
+// const arrByDate = []
+// function sortByDate() {
+//     postsArr.sort(function(a, b){
+//         console.log('sort', new Date(b.date) - new Date(a.date));
+//         // const arrByDate = new Date(b.date) - new Date(a.date)
+//         return new Date(b.date) - new Date(a.date);
+//     });
+// }
+// sortByDate()
+// console.log('arrByDate', sortByDate());
+
+
 
 // localStorage.clear()
