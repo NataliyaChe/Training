@@ -39,6 +39,8 @@ function deletePost(event) {
         for(let i = 0; i < user.posts.length; i++) {
             if(user.posts[i].id == event.target.dataset.id) {
                 user.posts.splice(i, 1);
+                const parent = event.target.parentNode;
+                parent.style.display = 'none'; 
             }
         }   
     })
