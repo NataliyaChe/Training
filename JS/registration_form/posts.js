@@ -16,7 +16,6 @@ postsArr.forEach(function({name, id, message, date, editDate}) {
 })
 
 function createCard(obj) {
-    // const edit = obj.editDate ?? '';
     const card = document.createElement('div');
     card.className = 'card'; 
     card.setAttribute("data-id", `${obj.id}`);
@@ -45,10 +44,6 @@ function deletePost(event) {
     })
     storage.setItem('usersArr', users);
 }
-
-// user.posts.forEach(function({id, message, date, editDate}) {
-//     createLi({id, message, date, editDate})
-// })
 
 console.log('test', postsArr);
 
