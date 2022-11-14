@@ -31,4 +31,4 @@ buttons.forEach(function(button) {
 
 // let allUsers = users.filter(item => !item.email === select.dataset.email);
 
-
+// localStorage.clear()
