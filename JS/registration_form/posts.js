@@ -7,22 +7,19 @@ const users = storage.getItem('usersArr');
 
 const postsArr = UsersMapper(users)
 
-// for(const postItem of postsArr) {
-//     postsWrap.innerHTML += createCard(postItem);
-// }
-
 postsArr.forEach(function({name, id, message, date, editDate}) {
     createCard({name, id, message, date, editDate})
 })
 
 function createCard(obj) {
+    const edit = obj.editDate ?? '';
     const card = document.createElement('div');
     card.className = 'card'; 
     card.setAttribute("data-id", `${obj.id}`);
     card.innerHTML = `<p>${obj.name}</p>
         <p class="message">${obj.message}</p> 
         <p>${obj.date}</p> 
-        <p class="edit">edit: ${obj.editDate}</p>
+        <p class="edit">edit: ${edit}</p>
         <button type="submit" class="button btn deleteBtn">Delete</button>`; 
     const deleteButtons = card.querySelector('.deleteBtn');
     deleteButtons.addEventListener('click', deletePost);
@@ -32,7 +29,6 @@ function createCard(obj) {
 }
 
 function deletePost(event) {
-    console.log('deletePost', event.target);
     users.forEach(function(user) {
         for(let i = 0; i < user.posts.length; i++) {
             if(user.posts[i].id == event.target.parentNode.dataset.id) {
@@ -45,10 +41,7 @@ function deletePost(event) {
     storage.setItem('usersArr', users);
 }
 
-console.log('test', postsArr);
-
 function editPost(event) {
-    console.log('test', event.target);
     const divParent = event.target.parentNode;
     const editItem = document.createElement('textarea');
     editItem.className = 'editForm';
@@ -64,7 +57,6 @@ function postReturn(event) {
     const editedPost = postsArr.find(item => item.id === divParent.dataset.id)
     const pItem = document.createElement('p');
     const editDate = divParent.querySelector('.edit');
-    console.log('edit', editDate);
     pItem.className = 'message';
     pItem.innerHTML = `${event.target.value}`;
     divParent.replaceChild(pItem, event.target);
@@ -72,23 +64,16 @@ function postReturn(event) {
     editedPost.message = pItem.innerHTML;
     editedPost.editDate = new Date();
     editDate.innerHTML = `${editedPost.editDate}`
+    users.forEach(function(user) {
+        for(let i = 0; i < user.posts.length; i++) {
+            if(user.posts[i].id === divParent.dataset.id) {
+                user.posts[i].message = event.target.value;
+                user.posts[i].editDate = editedPost.editDate;
+            }
+        }   
+    })
     storage.setItem('usersArr', users);
 }
-
 console.log('UsersMapper()', UsersMapper(users));
-
-// editButtons.forEach(function(button) {
-//     button.addEventListener('click', function() { 
-//         console.log('click', button);
-//         users.forEach(function(user) {
-//             for(let i = 0; i < user.posts.length; i++) {
-//                 if(user.posts[i].id == button.dataset.id) {
-                    
-//                 }
-//             }   
-//         })
-//         storage.setItem('usersArr', users);
-//     })
-// })
 
 // localStorage.clear()
