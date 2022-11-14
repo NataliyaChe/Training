@@ -16,7 +16,7 @@ function createCard(obj) {
     const card = document.createElement('div');
     card.className = 'card'; 
     card.setAttribute("data-id", `${obj.id}`);
-    card.innerHTML = `<p>${obj.name}</p>
+    card.innerHTML = `<p class="name">${obj.name}</p>
         <p class="message">${obj.message}</p> 
         <p>${obj.date}</p> 
         <p class="edit">edit: ${edit}</p>
@@ -75,5 +75,23 @@ function postReturn(event) {
     storage.setItem('usersArr', users);
 }
 console.log('UsersMapper()', UsersMapper(users));
+
+const searchInput = document.querySelector('.search-inp');
+const usersName = document.querySelectorAll('.name');
+console.log('usersName', usersName);
+usersName.forEach(function(user) {
+    console.log('user.innerHTML', user.innerHTML);
+})
+
+searchInput.addEventListener('keyup', function() {
+    let searchValue = searchInput.value.toLowerCase();
+    postsArr.forEach(function(user) {
+        if(user.name.toLowerCase().indexOf(searchValue) > -1) {
+            console.log('Match');
+        } else {
+            console.log('No match');
+        }
+    })  
+});
 
 // localStorage.clear()
