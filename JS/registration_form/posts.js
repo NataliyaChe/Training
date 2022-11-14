@@ -98,13 +98,21 @@ sortButton.addEventListener('click', function() {
             return new Date(b.date) - new Date(a.date);
         });
     console.log('arrByDate', arrByDate);
-
+    postsWrap.innerHTML = ''
     arrByDate.forEach(function({name, id, message, date, editDate}) {
-        // postsWrap.remove()
         createCard({name, id, message, date, editDate})
     });
 });
 
+// const arrByDate = postsArr.sort(function(a, b){
+//     return new Date(b.date) - new Date(a.date);
+// });
+// console.log('arrByDate', arrByDate);
+// postsWrap.innerHTML = ''
+// arrByDate.forEach(function({name, id, message, date, editDate}) {
+// // postsWrap.innerHTML = ''
+// createCard({name, id, message, date, editDate})
+// });
 
 // const arrByDate = []
 // function sortByDate() {
