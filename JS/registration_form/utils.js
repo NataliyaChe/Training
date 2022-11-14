@@ -60,8 +60,8 @@ function TableRow(user) {
 function UsersMapper(users) {
     const postsArr = [];
     users.forEach(function({name, email, posts}){
-        posts.forEach(function({message, date}) {
-            const post = {name, email, message, date};
+        posts.forEach(function({id, message, date, editDate}) {
+            const post = {name, email, id, message, date, editDate};
             postsArr.push(post)
         })
     })

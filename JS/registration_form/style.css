@@ -30,7 +30,7 @@
     border-radius: 6px;
     color: whitesmoke;
     padding: 10px;
-    width: 25%;
+    width: 100px;
     cursor: pointer;
 }
 
@@ -84,4 +84,16 @@
 
 .edit-form {
     display: none;
+}
+
+.posts-wrap {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns:  repeat(5, 1fr);
+}
+
+.card {
+    border: 2px solid teal;
+    border-radius: 10px;
+    padding: 10px;
 }

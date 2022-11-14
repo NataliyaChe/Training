@@ -10,3 +10,4 @@ logout.addEventListener('click', () => {
     localStorage.removeItem('matchUser')
     window.location.href = './login_form.html';
 });
+
