@@ -65,12 +65,12 @@ function postReturn(event) {
     editedPost.editDate = new Date();
     editDate.innerHTML = `${editedPost.editDate}`
     users.forEach(function(user) {
-        for(let i = 0; i < user.posts.length; i++) {
-            if(user.posts[i].id === divParent.dataset.id) {
-                user.posts[i].message = event.target.value;
-                user.posts[i].editDate = editedPost.editDate;
+        user.posts.forEach(function(post) {
+            if(post.id === divParent.dataset.id) {
+                post.message = event.target.value;
+                post.editDate = editedPost.editDate;
             }
-        }   
+        })   
     })
     storage.setItem('usersArr', users);
 }
