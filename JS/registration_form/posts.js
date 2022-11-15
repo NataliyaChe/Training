@@ -11,20 +11,20 @@ postsArr.forEach(function({name, id, message, date, editDate}) {
     createCard({name, id, message, date, editDate})
 })
 
-function createCard(obj) {
-    const edit = obj.editDate ?? '';
+function createCard({id, name, message, date, editDate}) {
+    const edit = editDate ?? '';
     const card = document.createElement('div');
     card.className = 'card'; 
-    card.setAttribute("data-id", `${obj.id}`);
-    card.innerHTML = `<p class="name">${obj.name}</p>
-        <p class="message">${obj.message}</p> 
-        <p class="date">${obj.date}</p> 
+    card.setAttribute("data-id", id);
+    card.innerHTML = `<p class="name">${name}</p>
+        <p class="message">${message}</p> 
+        <p class="date">${date}</p> 
         <p class="edit">edit: ${edit}</p>
         <button type="submit" class="button btn deleteBtn">Delete</button>`; 
     const deleteButtons = card.querySelector('.deleteBtn');
     deleteButtons.addEventListener('click', deletePost);
-    const message = card.querySelector('.message');
-    message.addEventListener('click', editPost);
+    const messageItem = card.querySelector('.message');
+    messageItem.addEventListener('click', editPost);
     postsWrap.append(card);
 }
 
@@ -80,6 +80,7 @@ const searchInput = document.querySelector('.search-inp');
 // const usersName = document.querySelectorAll('.name');
 
 searchInput.addEventListener('keyup', function() {
+    console.log('callback', event);
     const usersName = document.querySelectorAll('.name');
     let searchValue = searchInput.value.toLowerCase();
     usersName.forEach(function(user) {
