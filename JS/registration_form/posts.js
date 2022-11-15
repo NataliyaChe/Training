@@ -12,19 +12,19 @@ postsArr.forEach(function({name, id, message, date, editDate}) {
 })
 
 function createCard({id, name, message, date, editDate}) {
-    const edit = editDate ?? '';
+    const lastEditDate = editDate ?? '';
     const card = document.createElement('div');
     card.className = 'card'; 
     card.setAttribute("data-id", id);
     card.innerHTML = `<p class="name">${name}</p>
         <p class="message">${message}</p> 
         <p class="date">${date}</p> 
-        <p class="edit">edit: ${edit}</p>
+        <p class="edit">edit: ${lastEditDate}</p>
         <button type="submit" class="button btn deleteBtn">Delete</button>`; 
-    const deleteButtons = card.querySelector('.deleteBtn');
-    deleteButtons.addEventListener('click', deletePost);
-    const messageItem = card.querySelector('.message');
-    messageItem.addEventListener('click', editPost);
+    const deleteButton = card.querySelector('.deleteBtn');
+    deleteButton.addEventListener('click', deletePost);
+    const messageElement = card.querySelector('.message');
+    messageElement.addEventListener('click', editPost);
     postsWrap.append(card);
 }
 
@@ -43,25 +43,25 @@ function deletePost(event) {
 
 function editPost(event) {
     const divParent = event.target.parentNode;
-    const editItem = document.createElement('textarea');
-    editItem.className = 'editForm';
-    editItem.innerHTML = `${event.target.innerHTML}`;
-    divParent.replaceChild(editItem, event.target);
-    editItem.focus();
-    editItem.selectionStart = editItem.value.length;
-    editItem.addEventListener('focusout', postReturn)   
+    const textarea = document.createElement('textarea');
+    textarea.className = 'editForm';
+    textarea.innerHTML = `${event.target.innerHTML}`;
+    divParent.replaceChild(textarea, event.target);
+    textarea.focus();
+    textarea.selectionStart = textarea.value.length;
+    textarea.addEventListener('focusout', postReturn)   
 }
 
 function postReturn(event) {
     const divParent = event.target.parentNode;
     const editedPost = postsArr.find(item => item.id === divParent.dataset.id)
-    const pItem = document.createElement('p');
+    const paragraph = document.createElement('p');
     const editDate = divParent.querySelector('.edit');
-    pItem.className = 'message';
-    pItem.innerHTML = `${event.target.value}`;
-    divParent.replaceChild(pItem, event.target);
-    pItem.addEventListener('click', editPost);
-    editedPost.message = pItem.innerHTML;
+    paragraph.className = 'message';
+    paragraph.innerHTML = `${event.target.value}`;
+    divParent.replaceChild( paragraph, event.target);
+    paragraph.addEventListener('click', editPost);
+    editedPost.message =  paragraph.innerHTML;
     editedPost.editDate = new Date();
     editDate.innerHTML = `${editedPost.editDate}`
     users.forEach(function(user) {
@@ -96,14 +96,12 @@ const sortButton = document.querySelector('.sort-btn');
 const postsDate = document.querySelectorAll('.date');
 
 sortButton.addEventListener('click', function() {
-    const arrByDate = postsArr.sort(function(a, b){
-            return new Date(b.date) - new Date(a.date);
-        });
-    console.log('arrByDate', arrByDate);
+    // const postsSortedByDate = postsArr.sort(function(a, b){
+    //         return new Date(b.date) - new Date(a.date);
+    //     });
+    const postsSortedByDate = postsArr.sort((a, b) => new Date(b.date) - new Date(a.date))
     postsWrap.innerHTML = ''
-    arrByDate.forEach(function({name, id, message, date, editDate}) {
-        createCard({name, id, message, date, editDate})
-    });
+    postsSortedByDate.forEach(postCard => createCard(postCard))
 });
 
 // const arrByDate = postsArr.sort(function(a, b){

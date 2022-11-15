@@ -63,14 +63,14 @@ function liReturn(event) {
     storage.setItem('usersArr', users);
 }
 
-function createLi(obj) {
-    const edit = obj.editDate ?? '';
+function createLi({id, message, date, editDate}) {
+    const lastEditDate = editDate ?? '';
     const liItem = document.createElement('li');
     liItem.className = 'post-item'; 
-    liItem.setAttribute("data-id", `${obj.id}`);
-    liItem.innerHTML = `<p class="message">${obj.message}</p> <p>${obj.date}</p> <p class="edit">edit: ${edit}</p>`; 
-    const message = liItem.querySelector('.message');
-    message.addEventListener('click', liChange);
+    liItem.setAttribute("data-id", `${id}`);
+    liItem.innerHTML = `<p class="message">${message}</p> <p>${date}</p> <p class="edit">edit: ${lastEditDate}</p>`; 
+    const messageElement = liItem.querySelector('.message');
+    messageElement.addEventListener('click', liChange);
     list.append(liItem);
 }
 
