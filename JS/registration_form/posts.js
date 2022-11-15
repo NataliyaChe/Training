@@ -77,9 +77,10 @@ function postReturn(event) {
 console.log('postsArr', postsArr);
 
 const searchInput = document.querySelector('.search-inp');
-const usersName = document.querySelectorAll('.name');
+// const usersName = document.querySelectorAll('.name');
 
 searchInput.addEventListener('keyup', function() {
+    const usersName = document.querySelectorAll('.name');
     let searchValue = searchInput.value.toLowerCase();
     usersName.forEach(function(user) {
         if(user.innerHTML.toLowerCase().indexOf(searchValue) > -1) {
