@@ -96,9 +96,6 @@ const sortButton = document.querySelector('.sort-btn');
 const postsDate = document.querySelectorAll('.date');
 
 sortButton.addEventListener('click', function() {
-    // const postsSortedByDate = postsArr.sort(function(a, b){
-    //         return new Date(b.date) - new Date(a.date);
-    //     });
     const postsSortedByDate = postsArr.sort((a, b) => new Date(b.date) - new Date(a.date))
     postsWrap.innerHTML = ''
     postsSortedByDate.forEach(postCard => createCard(postCard))
